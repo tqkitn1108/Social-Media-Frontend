@@ -1,0 +1,74 @@
+<div id="CreatePostOverlay" class="fixed z-50 top-0 left-0 w-full h-full bg-white bg-opacity-70">
+  <div class="grid h-screen place-items-center p-4">
+    <div class="bg-white w-full max-w-[600px] mx-auto shadow-xl rounded-xl">
+      <div class="flex items-center relative my-3.5 mx-1">
+        <div class="text-[22px] font-extrabold w-full text-center">
+          Create Post
+        </div>
+        <div (click)="onClose()"
+          class="absolute right-3 rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer size-8 text-center">
+          <i class="fa-solid fa-x text-[#5E6771] pt-[9px]"></i>
+        </div>
+      </div>
+
+      <div class="border-t border-t-gray-300">
+        <div class="p-4">
+
+          <div class="flex items-center">
+            <img class="rounded-full ml-1 min-w-[45px] max-h-[45px]" [src]="user.avatarUrl">
+            <div class="ml-4">
+              <div class="font-extrabold">{{user.fullName}}</div>
+              <div class="flex items-center justify-between w-[100px] bg-gray-200 p-0.5 px-2 rounded-lg">
+                <i class="fa-solid fa-earth-americas"></i>
+                <span class="font-bold pl-1.5 text-[13px]">Public</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="max-h-[350px] overflow-auto">
+            <textarea [(ngModel)]="post.content" name="content" class="w-full border-0 mt-4 focus:outline-0 text-[22px]"
+              placeholder="What's on your mind?" cols="30" rows="3"></textarea>
+            <input id="media" type="file" class="hidden" (change)="onFileSelected($event)" multiple>
+            <app-media-display [files]="selectedFiles"></app-media-display>
+          </div>
+
+          <div class="border-2 rounded-xl mt-4 shadow-sm flex items-center justify-between">
+            <label for="media" class="font-extrabold p-4 cursor-pointer">
+              Add to your post
+            </label>
+            <div class="flex items-center">
+              <button class="hover:bg-gray-200 rounded-full size-8 cursor-pointer">
+                <i class="fa-solid fa-image text-[#43BE62]"></i>
+              </button>
+              <button class="hover:bg-gray-200 rounded-full size-8 cursor-pointer">
+                <i class="fa-regular fa-face-smile text-[#F8B927]"></i>
+              </button>
+              <button class="hover:bg-gray-200 rounded-full size-8 cursor-pointer">
+                <i class="fa-solid fa-video text-[#F12848]"></i>
+              </button>
+              <button class="hover:bg-gray-200 rounded-full size-8 cursor-pointer">
+                <i class="fa-solid fa-ellipsis text-[#050505]"></i>
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="error">
+            <div class="w-full bg-red-100 text-red-700 rounded-lg mt-3 text-center">
+              <div class="p-0.5">
+                error
+              </div>
+            </div>
+          </div>
+
+          <button (click)="createPost()"
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-extrabold p-2 mt-3 rounded-lg">
+            Post
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

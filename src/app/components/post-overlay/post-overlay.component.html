@@ -1,0 +1,28 @@
+<div id="comments" class="px-3">
+
+  <div id="create-comment" class="flex items-center justify-between py-2">
+    <div class="flex items-center w-full">
+      <a :href="route('user.show', { id: $page.props.auth.user.id })" class="mr-2">
+        <img class="rounded-full ml-1 min-w-[36px] max-h-[36px]"
+          :src="$page.props.auth.https://picsum.photos/id/8/300/320">
+      </a>
+      <div class="flex items-center justify-center bg-[#EFF2F5] p-2 rounded-full w-full">
+        <input v-model="form.comment" class="
+                          w-full
+                          mx-1
+                          border-none
+                          p-0
+                          text-sm
+                          bg-[#EFF2F5]
+                          placeholder-[#64676B]
+                          ring-0
+                          focus:ring-0
+                      " placeholder="Write a public comment..." type="text">
+        <!-- <button type="button" (click)="createComment()"
+          class="flex items-center text-sm pl-2 pr-3.5 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-bold">
+          <i class="fa-solid fa-check text-white"></i> Send
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>

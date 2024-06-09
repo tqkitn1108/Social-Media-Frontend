@@ -1,0 +1,12 @@
+<div class="grid grid-cols-2">
+  <div *ngFor="let file of files; let i = index">
+    <div *ngIf="file" class="p-2 border border-gray-300 rounded-lg relative">
+      <div (click)="closeMedia(i)" class="absolute bg-white right-2 rounded-full border cursor-pointer size-6 text-center">
+        <i class="fa-solid fa-x text-xs [#5E6771] align-middle mb-[3px]"></i>
+      </div>
+      <img *ngIf="file.type.startsWith('image/')" [src]="file.preview" [alt]="file.file.name" width="100%"
+        class="h-[150px] object-cover">
+      <video *ngIf="file.type.startsWith('video/')" [src]="file.preview" width="100%" controls></video>
+    </div>
+  </div>
+</div>

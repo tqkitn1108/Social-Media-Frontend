@@ -1,0 +1,86 @@
+<div id="post" class="w-full bg-white rounded-lg my-4 shadow-md">
+  <div class="flex items-center py-3 px-3">
+    <button (click)="true" class="mr-2">
+      <img class="rounded-full ml-1 min-w-[42px] max-h-[42px]" :src="https://picsum.photos/id/8/300/320">
+    </button>
+    <div class="flex items-center justify-between p-2 rounded-full w-full">
+      <div>
+        <div class="font-extrabold text-[15px]">user.name</div>
+        <div class="flex items-center text-xs text-gray-600">
+          14h ago
+          <i class="fa-solid fa-earth-americas text-[#64676B] ml-2"></i>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <button (click)="deletePost(post.id)" class="rounded-full size-8 cursor-pointer hover:bg-[#F2F2F2]">
+          <i class="fa-solid fa-ellipsis text-[#64676B]"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="px-5 pb-2 text-[17px] font-semibold">This is post's content</div>
+  <div class="grid-rows-3 grid-cols-3">
+    <img class="mx-auto cursor-pointer" :src="https://picsum.photos/id/8/300/320">
+  </div>
+  <div id="likes" class="px-5">
+    <div class="flex items-center justify-between py-3 border-b">
+      <div>
+        <i class="fa-solid fa-thumbs-up text-[#1D72E2]"></i>
+        500 likes
+      </div>
+      <div class="text-sm text-gray-600 font-semibold">8 comments</div>
+    </div>
+  </div>
+  <div class="flex justify-between px-10 py-3">
+    <button class=""><i class="fa-regular fa-thumbs-up mr-1"></i>Like</button>
+    <button class=""><i class="fa-regular fa-comment mr-1"></i>Comment</button>
+    <button class=""><i class="fa-solid fa-share mr-1"></i>Share</button>
+  </div>
+  <!-- <div id="comments" class="px-3">
+
+    <div id="CreateComment" class="flex items-center justify-between py-2">
+      <div class="flex items-center w-full">
+        <a :href="route('user.show', { id: $page.props.auth.user.id })" class="mr-2">
+          <img class="rounded-full ml-1 min-w-[36px] max-h-[36px]"
+            :src="$page.props.auth.https://picsum.photos/id/8/300/320">
+        </a>
+        <div class="flex items-center justify-center bg-[#EFF2F5] p-2 rounded-full w-full">
+          <input v-model="form.comment" class="
+                          w-full
+                          mx-1
+                          border-none
+                          p-0
+                          text-sm
+                          bg-[#EFF2F5]
+                          placeholder-[#64676B]
+                          ring-0
+                          focus:ring-0
+                      " placeholder="Write a public comment..." type="text">
+          <button type="button" (click)="createComment()"
+            class="flex items-center text-sm pl-2 pr-3.5 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-bold">
+            <i class="fa-solid fa-check text-white"></i> Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="comments" id="Comments" class="max-h-[120px] overflow-auto pb-2 px-4">
+      <div class="flex items-center justify-between pb-2" *ngfor="comment in comments" :key="comment">
+        <div class="flex items-center w-full mb-1">
+          <a :href="route('posts.index')" class="mr-2">
+            <img class="rounded-full ml-1 min-w-[36px] max-h-[36px]" :src="comment.https://picsum.photos/id/8/300/320">
+          </a>
+          <div class="flex items-center w-full">
+            <div class="flex items-center bg-[#EFF2F5] text-xs p-2 rounded-lg w-full">
+              comment.text
+            </div>
+            <button *ngIf="true" (click)="deleteComment(comment.id)"
+              class="rounded-full p-1.5 ml-2 cursor-pointer hover:bg-[#F2F2F2]">
+              <i class="fa-solid fa-trash text-[#64676B]"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
