@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Profile } from '../../services/api/models/profile';
 import { PostRequest } from '../../services/api/models/post-request';
-import { forkJoin } from 'rxjs';
 import { PostService } from '../../services/api/post/post.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -37,7 +36,6 @@ export class CreatePostOverlayComponent {
       this.post.status = 'PUBLIC';
       this.postService.createPost(this.post).subscribe({
         next: (data) => {
-          console.log(data);
           this.onClose();
         },
         error: (err) => {

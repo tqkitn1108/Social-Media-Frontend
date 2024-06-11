@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/api/users/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Profile } from '../../services/api/models/profile';
+import { PostService } from '../../services/api/post/post.service';
+import { Post } from '../../services/api/models/post';
 
 @Component({
   selector: 'app-profile',
@@ -14,10 +16,12 @@ export class ProfileComponent implements OnInit {
   showCropper: boolean = false;
   isMyProfile: boolean = true;
   param: string = '';
+  posts: Post[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
+    private postService: PostService,
     private router: Router
   ) { }
 
@@ -29,7 +33,7 @@ export class ProfileComponent implements OnInit {
         next: data => {
           this.user = data;
           if (this.user.avatarUrl === null) {
-            this.user.avatarUrl = 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1';
+            this.user.avatarUrl = 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png';
           }
         },
         error: (err: HttpErrorResponse) => {
@@ -38,6 +42,14 @@ export class ProfileComponent implements OnInit {
       })
     }
     else this.user = JSON.parse(localStorage.getItem('user') as string);
+    this.postService.getPostsByOwnerId(this.param || this.user.id as string).subscribe({
+      next: data => {
+        this.posts = data;
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
   }
 
   closeModal() {

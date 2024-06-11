@@ -28,6 +28,11 @@ export class HomeComponent implements OnInit {
             this.user = data;
             if (this.user.avatarUrl === null) {
               this.user.avatarUrl = 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1';
+              this.userService.setAvatarUrl('https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1').subscribe({
+                error: err => {
+                  console.log(err);
+                }
+              });
             }
             localStorage.setItem('user', JSON.stringify(this.user));
           },

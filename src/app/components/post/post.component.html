@@ -1,40 +1,49 @@
 <div id="post" class="w-full bg-white rounded-lg my-4 shadow-md">
   <div class="flex items-center py-3 px-3">
     <button (click)="true" class="mr-2">
-      <img class="rounded-full ml-1 min-w-[42px] max-h-[42px]" :src="https://picsum.photos/id/8/300/320">
+      <img class="rounded-full ml-1 min-w-[42px] max-h-[42px]" [src]="post.user?.avatarUrl">
     </button>
     <div class="flex items-center justify-between p-2 rounded-full w-full">
       <div>
-        <div class="font-extrabold text-[15px]">user.name</div>
+        <div class="font-extrabold text-[15px]">{{post.user?.fullName}}</div>
         <div class="flex items-center text-xs text-gray-600">
-          14h ago
+          {{post.createdAt}}
           <i class="fa-solid fa-earth-americas text-[#64676B] ml-2"></i>
         </div>
       </div>
       <div class="flex items-center">
-        <button (click)="deletePost(post.id)" class="rounded-full size-8 cursor-pointer hover:bg-[#F2F2F2]">
+        <button (click)="deletePost(post.id ?? 0)" class="rounded-full size-8 cursor-pointer hover:bg-[#F2F2F2]">
           <i class="fa-solid fa-ellipsis text-[#64676B]"></i>
         </button>
       </div>
     </div>
   </div>
-  <div class="px-5 pb-2 text-[17px] font-semibold">This is post's content</div>
-  <div class="grid-rows-3 grid-cols-3">
-    <img class="mx-auto cursor-pointer" :src="https://picsum.photos/id/8/300/320">
+  <div class="px-5 pb-2 text-[17px] font-semibold">{{post.content}}</div>
+  <div class="grid grid-cols-2 max-h-[400px]">
+    <div *ngFor="let media of post.medias; let i = index">
+      <div *ngIf="media" class="p-2 rounded-lg relative">
+        <img *ngIf="media.mediaType.startsWith('image/')" [src]="media.url" [alt]="" width="100%"
+          class="h-[200px] object-cover">
+        <video *ngIf="media.mediaType.startsWith('video/')" [src]="media.url" width="100%" controls></video>
+      </div>
+    </div>
   </div>
   <div id="likes" class="px-5">
     <div class="flex items-center justify-between py-3 border-b">
       <div>
         <i class="fa-solid fa-thumbs-up text-[#1D72E2]"></i>
-        500 likes
+        {{post.reactsCount}} likes
       </div>
-      <div class="text-sm text-gray-600 font-semibold">8 comments</div>
+      <div class="text-sm text-gray-600 font-semibold">{{post.commentsCount}} comments</div>
     </div>
   </div>
-  <div class="flex justify-between px-10 py-3">
-    <button class=""><i class="fa-regular fa-thumbs-up mr-1"></i>Like</button>
-    <button class=""><i class="fa-regular fa-comment mr-1"></i>Comment</button>
-    <button class=""><i class="fa-solid fa-share mr-1"></i>Share</button>
+  <div class="flex justify-between px-5 py-2">
+    <button (click)="addReact()" class="px-4 py-1 hover:bg-[#f0f0f0] w-full rounded-md"
+      [ngClass]="{'text-[#1D72E2]': post.reacted }">
+      <i class="fa-thumbs-up mr-1" [ngClass]="{'fa-regular': !post.reacted, 'fa-solid': post.reacted}"></i>Like</button>
+    <button class="px-4 py-1 hover:bg-[#f0f0f0] w-full rounded-md"><i
+        class="fa-regular fa-comment mr-1"></i>Comment</button>
+    <button class="px-4 py-1 hover:bg-[#f0f0f0] w-full rounded-md"><i class="fa-solid fa-share mr-1"></i>Share</button>
   </div>
   <!-- <div id="comments" class="px-3">
 

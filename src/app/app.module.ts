@@ -19,6 +19,7 @@ import { PostOverlayComponent } from './components/post-overlay/post-overlay.com
 import { CommentComponent } from './components/comment/comment.component';
 import { FormsModule } from '@angular/forms';
 import { MediaDisplayComponent } from './components/media-display/media-display.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 export function kcFactory(kcService: KeycloakService) {
   return () => kcService.init();
@@ -38,6 +39,7 @@ export function kcFactory(kcService: KeycloakService) {
     PostOverlayComponent,
     CommentComponent,
     MediaDisplayComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,

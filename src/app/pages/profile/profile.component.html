@@ -136,11 +136,7 @@
 
     <div id="PostsSection" class="w-full md:w-7/12  overflow-auto">
       <app-create-post-box [user]="user"></app-create-post-box>
-      <div v-for="post in posts.data" :key="post">
-        <!-- <Post :user="post.user" :post="post" :comments="post.comments" /> -->
-        <app-post></app-post>
-      </div>
-
+      <app-post *ngFor="let post of posts" [post]="post"></app-post>
     </div>
 
   </div>

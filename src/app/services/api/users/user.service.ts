@@ -13,15 +13,19 @@ export class UserService {
   constructor(private baseService: BaseService,
     private http: HttpClient
   ) {
-    this.rootUrl = baseService.rootUrl
+    this.rootUrl = baseService.rootUrl + '/users';
   }
 
   getCurrentUser() {
-    return this.http.get<Profile>(`${this.rootUrl}/users/me`);
+    return this.http.get<Profile>(`${this.rootUrl}/me`);
   }
 
   getUserById(userId: string) {
-    return this.http.get<Profile>(`${this.rootUrl}/users/summary/${userId}`)
+    return this.http.get<Profile>(`${this.rootUrl}/summary/${userId}`);
+  }
+
+  setAvatarUrl(url: string) {
+    return this.http.patch(`${this.rootUrl}/avatar`, { avatarUrl: url });
   }
 
 }
