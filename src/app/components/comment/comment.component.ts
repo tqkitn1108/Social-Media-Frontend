@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Comment } from '../../services/api/models/comment';
 
 @Component({
   selector: 'app-comment',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './comment.component.scss'
 })
 export class CommentComponent {
-  
+  @Input()
+  comment: Comment = {};
+
+  deleteComment(id: number){
+    
+  }
 }

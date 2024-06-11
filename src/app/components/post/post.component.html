@@ -34,7 +34,8 @@
         <i class="fa-solid fa-thumbs-up text-[#1D72E2]"></i>
         {{post.reactsCount}} likes
       </div>
-      <div class="text-sm text-gray-600 font-semibold">{{post.commentsCount}} comments</div>
+      <div (click)="onOpenComment()" class="text-sm text-gray-600 font-semibold cursor-pointer">
+        {{post.commentsCount}} comments</div>
     </div>
   </div>
   <div class="flex justify-between px-5 py-2">
@@ -45,51 +46,52 @@
         class="fa-regular fa-comment mr-1"></i>Comment</button>
     <button class="px-4 py-1 hover:bg-[#f0f0f0] w-full rounded-md"><i class="fa-solid fa-share mr-1"></i>Share</button>
   </div>
-  <!-- <div id="comments" class="px-3">
 
-    <div id="CreateComment" class="flex items-center justify-between py-2">
+  <div id="comments" class="px-3">
+    <div id="create-comment" class="flex items-center justify-between py-2">
       <div class="flex items-center w-full">
-        <a :href="route('user.show', { id: $page.props.auth.user.id })" class="mr-2">
-          <img class="rounded-full ml-1 min-w-[36px] max-h-[36px]"
-            :src="$page.props.auth.https://picsum.photos/id/8/300/320">
+        <a class="mr-2">
+          <img class="rounded-full ml-1 min-w-[36px] max-h-[36px]" [src]="user.avatarUrl">
         </a>
-        <div class="flex items-center justify-center bg-[#EFF2F5] p-2 rounded-full w-full">
-          <input v-model="form.comment" class="
-                          w-full
-                          mx-1
-                          border-none
-                          p-0
-                          text-sm
-                          bg-[#EFF2F5]
-                          placeholder-[#64676B]
-                          ring-0
-                          focus:ring-0
-                      " placeholder="Write a public comment..." type="text">
-          <button type="button" (click)="createComment()"
-            class="flex items-center text-sm pl-2 pr-3.5 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-bold">
-            <i class="fa-solid fa-check text-white"></i> Send
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="comments" id="Comments" class="max-h-[120px] overflow-auto pb-2 px-4">
-      <div class="flex items-center justify-between pb-2" *ngfor="comment in comments" :key="comment">
-        <div class="flex items-center w-full mb-1">
-          <a :href="route('posts.index')" class="mr-2">
-            <img class="rounded-full ml-1 min-w-[36px] max-h-[36px]" :src="comment.https://picsum.photos/id/8/300/320">
-          </a>
-          <div class="flex items-center w-full">
-            <div class="flex items-center bg-[#EFF2F5] text-xs p-2 rounded-lg w-full">
-              comment.text
+        <div class="flex flex-col w-full rounded-[20px] bg-[#EFF2F5]">
+          <div class="flex items-center justify-center p-1.5 w-full">
+            <input id="comment" [(ngModel)]="commentRequest.content" class="w-full mx-1 border-none p-0 text-sm
+          bg-[#EFF2F5] placeholder-[#64676B]
+        outline-0 focus:outline-0" placeholder="Write a public comment..." type="text">
+          </div>
+          <div class="flex flex-wrap gap-1">
+            <div *ngFor="let file of selectedFiles">
+              <img *ngIf="file.type.startsWith('image/')" [src]="file.preview" [alt]="file.file.name" width="100%"
+                class="h-[150px] object-cover">
+              <video *ngIf="file.type.startsWith('video/')" [src]="file.preview" width="100%" controls></video>
             </div>
-            <button *ngIf="true" (click)="deleteComment(comment.id)"
-              class="rounded-full p-1.5 ml-2 cursor-pointer hover:bg-[#F2F2F2]">
-              <i class="fa-solid fa-trash text-[#64676B]"></i>
+          </div>
+          <div class="flex items-center justify-between p-1.5 w-full">
+            <div class="flex items-center">
+              <button class="hover:bg-gray-200 rounded-full size-8 cursor-pointer">
+                <input id="image" type="file" class="hidden" (change)="onFileSelected($event)">
+                <label for="image" class="cursor-pointer">
+                  <i class="fa-solid fa-image text-[#43BE62]"></i>
+                </label>
+              </button>
+              <button class="hover:bg-gray-200 rounded-full size-8 cursor-pointer">
+                <i class="fa-regular fa-face-smile text-[#F8B927]"></i>
+              </button>
+              <button class="hover:bg-gray-200 rounded-full size-8 cursor-pointer">
+                <i class="fa-solid fa-video text-[#F12848]"></i>
+              </button>
+            </div>
+            <button type="button" (click)="uploadFiles()"
+              class="flex items-center text-sm px-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-1">
+              <i class="fa-solid fa-check text-white mr-1"></i>
+              Send
             </button>
           </div>
         </div>
       </div>
     </div>
-  </div> -->
+    <div id="comment-list" *ngIf="showComment">
+        <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+    </div>
+  </div>
 </div>

@@ -69,15 +69,6 @@ export class CreatePostOverlayComponent {
       formData.append('files', fileData.file);
     });
 
-    // this.postService.uploadMutilMedia(formData)
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.mediaResponses = response;
-    //     },
-    //     error: (err: HttpErrorResponse) => {
-    //       console.log(err);
-    //     }
-    //   });
     return new Promise((resolve, reject) => {
       this.postService.uploadMutilMedia(formData)
         .subscribe({

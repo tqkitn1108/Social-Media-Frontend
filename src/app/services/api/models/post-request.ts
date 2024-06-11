@@ -1,5 +1,5 @@
 export interface PostRequest {
-  id?: string;
+  id?: number;
   status?: string;
   content?: string;
   mediaIds?: Array<number>;

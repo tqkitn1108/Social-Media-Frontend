@@ -1,5 +1,5 @@
 export interface Media{
-  id?: string;
+  id?: number;
   mediaName?: string;
   mediaType?: string;
   url?: string;

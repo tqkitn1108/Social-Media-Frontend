@@ -5,6 +5,8 @@ import { BaseService } from '../config/base.service';
 import { Post } from '../models/post';
 import { ReactRequest } from '../models/react-request';
 import { Media } from '../models/media';
+import { CommentRequest } from '../models/comment-request';
+import { Comment } from '../models/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +30,7 @@ export class PostService {
   }
 
   uploadMutilMedia(formData: FormData) {
-    return this.http.post(`${this.rootUrl}/medias/multi-upload`, formData);
+    return this.http.post<Media[]>(`${this.rootUrl}/medias/multi-upload`, formData);
   }
 
   uploadMedia(formData: FormData) {
@@ -37,5 +39,9 @@ export class PostService {
 
   addReact(reactRequest: ReactRequest) {
     return this.http.post(`${this.rootUrl}/reacts`, reactRequest);
+  }
+
+  addComment(commentRequest: CommentRequest){
+    return this.http.post<Comment>(`${this.rootUrl}/comments`, commentRequest)
   }
 }
