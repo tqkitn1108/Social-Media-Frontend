@@ -4,6 +4,7 @@ import { PostRequest } from '../models/post-request';
 import { BaseService } from '../config/base.service';
 import { Post } from '../models/post';
 import { ReactRequest } from '../models/react-request';
+import { Media } from '../models/media';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class PostService {
   }
 
   uploadMedia(formData: FormData) {
-    return this.http.post(`${this.rootUrl}/medias/upload`, formData);
+    return this.http.post<Media>(`${this.rootUrl}/medias/upload`, formData);
   }
 
   addReact(reactRequest: ReactRequest) {

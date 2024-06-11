@@ -24,7 +24,7 @@
               <input type="file" id="image" ref="fileInput" class="hidden" (change)="fileChangeEvent($event)">
             </div>
             <div class="w-[350px] mx-auto">
-              <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+              <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
                 format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
                 (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
             </div>
@@ -35,7 +35,7 @@
               focus:outline-none focus:ring-0">
                 Cancel
               </button>
-              <button type="button" class="w-3/6 rounded-md bg-blue-500 py-2
+              <button (click)="onSave()" type="button" class="w-3/6 rounded-md bg-blue-500 py-2
               text-white font-bold shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-0">
                 Save
               </button>

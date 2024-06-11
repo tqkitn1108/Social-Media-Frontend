@@ -1,5 +1,6 @@
 <app-navbar [avatar]="user.avatarUrl" [fullName]="user.fullName"></app-navbar>
-<app-cropper-modal *ngIf="showCropper" (isClosed)="closeModal()"></app-cropper-modal>
+<app-cropper-modal *ngIf="showCropper" (isClosed)="closeModal()" 
+[userId]="user.id ?? ''" (changeAvatar)="onChangeAvatar($event)"></app-cropper-modal>
 
 <div class="w-full min-h-[100vh] pb-20 bg-[#F1F2F5]">
   <div class="w-full bg-white">

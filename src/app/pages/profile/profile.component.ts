@@ -55,4 +55,9 @@ export class ProfileComponent implements OnInit {
   closeModal() {
     this.showCropper = false;
   }
+
+  onChangeAvatar(url: string) {
+    this.user.avatarUrl = url;
+    localStorage.setItem('user', JSON.stringify(this.user));
+  }
 }
