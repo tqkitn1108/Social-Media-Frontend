@@ -1,18 +1,18 @@
 <div id="post" class="w-full bg-white rounded-lg my-4 shadow-md">
   <div class="flex items-center py-3 px-3">
     <button (click)="true" class="mr-2">
-      <img class="rounded-full ml-1 min-w-[42px] max-h-[42px]" [src]="post.user?.avatarUrl">
+      <img class="rounded-full ml-1 min-w-[42px] max-h-[42px]" [src]="post.user.avatarUrl">
     </button>
     <div class="flex items-center justify-between p-2 rounded-full w-full">
       <div>
-        <div class="font-extrabold text-[15px]">{{post.user?.fullName}}</div>
+        <div class="font-extrabold text-[15px]">{{post.user.fullName}}</div>
         <div class="flex items-center text-xs text-gray-600">
           {{post.createdAt}}
           <i class="fa-solid fa-earth-americas text-[#64676B] ml-2"></i>
         </div>
       </div>
       <div class="flex items-center">
-        <button (click)="deletePost(post.id ?? 0)" class="rounded-full size-8 cursor-pointer hover:bg-[#F2F2F2]">
+        <button (click)="deletePost(post.id)" class="rounded-full size-8 cursor-pointer hover:bg-[#F2F2F2]">
           <i class="fa-solid fa-ellipsis text-[#64676B]"></i>
         </button>
       </div>
@@ -81,7 +81,7 @@
                 <i class="fa-solid fa-video text-[#F12848]"></i>
               </button>
             </div>
-            <button type="button" (click)="uploadFiles()"
+            <button type="button" (click)="uploadFiles()" *ngIf="commentRequest.content || selectedFiles.length > 0"
               class="flex items-center text-sm px-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-1">
               <i class="fa-solid fa-check text-white mr-1"></i>
               Send
@@ -91,7 +91,7 @@
       </div>
     </div>
     <div id="comment-list" *ngIf="showComment">
-        <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+      <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { Profile } from '../../services/api/models/profile';
 import { PostRequest } from '../../services/api/models/post-request';
 import { PostService } from '../../services/api/post/post.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Media } from '../../services/api/models/media';
 
 @Component({
   selector: 'app-create-post-overlay',
@@ -28,23 +29,19 @@ export class CreatePostOverlayComponent {
     this.isClose.emit();
   }
 
-  createPost() {
-    this.uploadFiles().then((response) => {
-      this.mediaResponses = response;
-      this.post.mediaIds = this.mediaResponses.map((media: any) => media.id);
-      this.post.ownerId = this.user.id;
-      this.post.status = 'PUBLIC';
-      this.postService.createPost(this.post).subscribe({
-        next: (data) => {
-          this.onClose();
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      })
-    }).catch((error) => {
-      console.log(error);
-    });
+  createPost(medias: Media[]) {
+    this.mediaResponses = medias;
+    this.post.mediaIds = this.mediaResponses.map((media: any) => media.id);
+    this.post.ownerId = this.user.id;
+    this.post.status = 'PUBLIC';
+    this.postService.createPost(this.post).subscribe({
+      next: (data) => {
+        this.onClose();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
 
@@ -64,6 +61,10 @@ export class CreatePostOverlayComponent {
   }
 
   uploadFiles() {
+    if (this.selectedFiles.length === 0) {
+      this.createPost([]);
+      return;
+    }
     const formData = new FormData();
     this.selectedFiles.forEach(fileData => {
       formData.append('files', fileData.file);

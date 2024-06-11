@@ -44,4 +44,8 @@ export class PostService {
   addComment(commentRequest: CommentRequest){
     return this.http.post<Comment>(`${this.rootUrl}/comments`, commentRequest)
   }
+
+  getCommentsByPost(postId: number){
+    return this.http.get<Comment[]>(`${this.rootUrl}/comments/post/${postId}`);
+  }
 }

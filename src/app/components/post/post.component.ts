@@ -12,14 +12,37 @@ import { Media } from '../../services/api/models/media';
 })
 export class PostComponent {
   @Input()
-  post: Post = {};
+  post: Post = {
+    id: 0,
+    content: '',
+    reacted: false,
+    medias: [],
+    createdAt: new Date(),
+    lastModifiedAt: new Date(),
+    reactsCount: 0,
+    commentsCount: 0,
+    user: {}
+  };
   commentRequest: any = {};
   showComment: boolean = false;
   reactRequest: ReactRequest = {};
   user: Profile = JSON.parse(localStorage.getItem('user') as string);
   selectedFiles: any[] = [];
   mediaResponses: any = [];
-  comments: any[] = [];
+  comments: any[] = [{
+    id: 123,
+    content: "test commnet fa-solid fa-ellipsis text-[#050505] fa-solid fa-ellipsis text-[#050505] ",
+    createdAt: new Date(11, 6, 2024),
+    lastModifiedAt: new Date(11, 6, 2024),
+    medias: {
+      url: 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
+    },
+    postId: 1,
+    user: {
+      avatarUrl: 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png',
+      fullName: 'Kien Quang'
+    }
+  }];
 
   constructor(private postService: PostService) { }
 
@@ -33,12 +56,17 @@ export class PostComponent {
       type: 'LIKE',
       userId: this.user.id
     }
+    this.post.reacted = !this.post.reacted;
+    if (this.post.reacted)
+      this.post.reactsCount++;
+    else this.post.reactsCount--;
     this.postService.addReact(this.reactRequest)
       .subscribe({
-        next: data => {
-          this.post.reacted = !this.post.reacted;
-        },
         error: err => {
+          this.post.reacted = !this.post.reacted;
+          if (this.post.reacted)
+            this.post.reactsCount++;
+          else this.post.reactsCount--;
           console.log(err);
         }
       })
@@ -84,10 +112,19 @@ export class PostComponent {
 
   onOpenComment() {
     this.showComment = true;
+    this.postService.getCommentsByPost(this.post.id)
+      .subscribe({
+        next: data => {
+          this.comments = data;
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
   }
 
-  createComment(response: Media[]) {
-    this.mediaResponses = response;
+  createComment(medias: Media[]) {
+    this.mediaResponses = medias;
     this.commentRequest.mediaIds = this.mediaResponses.map((media: any) => media.id);
     this.commentRequest.userId = this.user.id;
     this.commentRequest.postId = this.post.id;
@@ -96,6 +133,7 @@ export class PostComponent {
         this.selectedFiles = [];
         this.commentRequest.content = '';
         this.comments.push(data);
+        this.post.commentsCount++;
         this.showComment = true;
       },
       error: (err) => {

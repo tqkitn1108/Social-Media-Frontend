@@ -1,16 +1,17 @@
-<div v-if="comments" id="Comments" class="max-h-[120px] overflow-auto pb-2 px-4">
+<div class="max-h-[120px] overflow-auto pb-2 px-4">
   <div class="flex items-center justify-between pb-2">
     <div class="flex items-center w-full mb-1">
       <a class="mr-2">
         <img class="rounded-full ml-1 min-w-[36px] max-h-[36px]" [src]="comment.user?.avatarUrl">
       </a>
-      <div class="flex items-center w-full">
-        <div class="flex items-center bg-[#EFF2F5] text-xs p-2 rounded-lg w-full">
-          {{comment.content}}
+      <div class="flex items-center">
+        <div class="flex flex-col bg-[#EFF2F5] text-xs p-2 rounded-[16px] w-full">
+          <div class="font-bold mb-0.5">{{comment.user?.fullName}}</div>
+          <div>{{comment.content}}</div>
         </div>
         <button *ngIf="true" (click)="deleteComment(comment.id ?? 0)"
-          class="rounded-full p-1.5 ml-2 cursor-pointer hover:bg-[#F2F2F2]">
-          <i class="fa-solid fa-trash text-[#64676B]"></i>
+          class="rounded-full ml-2 cursor-pointer hover:bg-[#F2F2F2] size-8 px-1">
+          <i class="fa-solid fa-ellipsis text-[#050505]"></i>
         </button>
       </div>
     </div>
