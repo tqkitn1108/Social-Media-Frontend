@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Profile } from '../../services/api/models/profile';
+import { Post } from '../../services/api/models/post';
 
 @Component({
   selector: 'app-create-post-box',
@@ -11,6 +12,8 @@ export class CreatePostBoxComponent implements OnInit {
   createPostOverlay: boolean = false;
   @Input()
   user: Profile = {};
+  @Output()
+  createdPost: EventEmitter<Post> = new EventEmitter();
 
   ngOnInit(): void {
 
@@ -22,5 +25,9 @@ export class CreatePostBoxComponent implements OnInit {
 
   closeCreatePost() {
     this.createPostOverlay = false;
+  }
+
+  emitCreatedPost(post: Post) {
+    this.createdPost.emit(post);
   }
 }

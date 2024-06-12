@@ -1,5 +1,5 @@
 <app-create-post-overlay *ngIf="createPostOverlay" [user]="user"
-  (isClose)="closeCreatePost()"></app-create-post-overlay>
+  (isClose)="closeCreatePost()" (isCreated)="emitCreatedPost($event)"></app-create-post-overlay>
 <div id="create-post-box" class="w-full bg-white rounded-lg px-3 mt-4 shadow-md">
 
   <div class="flex items-center py-3 border-b">

@@ -26,7 +26,7 @@ export class PostService {
   }
 
   createPost(postRequest: PostRequest) {
-    return this.http.post(`${this.rootUrl}/posts`, postRequest);
+    return this.http.post<Post>(`${this.rootUrl}/posts`, postRequest);
   }
 
   uploadMutilMedia(formData: FormData) {

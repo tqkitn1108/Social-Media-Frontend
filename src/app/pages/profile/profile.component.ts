@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   isMyProfile: boolean = true;
   param: string = '';
   posts: Post[] = [];
+  subContent: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -26,8 +27,9 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.subContent = this.activatedRoute.snapshot.queryParams['sc'];
     this.param = this.activatedRoute.snapshot.params["userId"];
-    if (this.param) {
+    if (this.param && this.param !== JSON.parse(localStorage.getItem('user') as string).id) {
       this.isMyProfile = false;
       this.userService.getUserById(this.param).subscribe({
         next: data => {
@@ -59,5 +61,17 @@ export class ProfileComponent implements OnInit {
   onChangeAvatar(url: string) {
     this.user.avatarUrl = url;
     localStorage.setItem('user', JSON.stringify(this.user));
+  }
+
+  openFriends() {
+    const userId = this.user.id;
+    const queryParams = {
+      'sc': 'friends'
+    }
+    this.router.navigate(['/profile', userId], { queryParams });
+  }
+
+  addToPosts(post: Post) {
+    this.posts.unshift(post);
   }
 }

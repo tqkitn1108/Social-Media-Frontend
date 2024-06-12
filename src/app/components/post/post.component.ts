@@ -29,20 +29,7 @@ export class PostComponent {
   user: Profile = JSON.parse(localStorage.getItem('user') as string);
   selectedFiles: any[] = [];
   mediaResponses: any = [];
-  comments: any[] = [{
-    id: 123,
-    content: "test commnet fa-solid fa-ellipsis text-[#050505] fa-solid fa-ellipsis text-[#050505] ",
-    createdAt: new Date(11, 6, 2024),
-    lastModifiedAt: new Date(11, 6, 2024),
-    medias: {
-      url: 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
-    },
-    postId: 1,
-    user: {
-      avatarUrl: 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png',
-      fullName: 'Kien Quang'
-    }
-  }];
+  comments: any[] = [];
 
   constructor(private postService: PostService) { }
 

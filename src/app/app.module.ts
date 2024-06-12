@@ -20,6 +20,10 @@ import { CommentComponent } from './components/comment/comment.component';
 import { FormsModule } from '@angular/forms';
 import { MediaDisplayComponent } from './components/media-display/media-display.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { FriendCardComponent } from './components/friend-card/friend-card.component';
+import { FriendsPageComponent } from './pages/friends-page/friends-page.component';
+import { SearchItemComponent } from './components/search-item/search-item.component';
+import { FriendsAllComponent } from './components/friends-all/friends-all.component';
 
 export function kcFactory(kcService: KeycloakService) {
   return () => kcService.init();
@@ -40,6 +44,10 @@ export function kcFactory(kcService: KeycloakService) {
     CommentComponent,
     MediaDisplayComponent,
     LoadingSpinnerComponent,
+    FriendCardComponent,
+    FriendsPageComponent,
+    SearchItemComponent,
+    FriendsAllComponent,
   ],
   imports: [
     BrowserModule,

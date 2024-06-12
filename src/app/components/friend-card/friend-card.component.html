@@ -1,0 +1,18 @@
+<div class="friend-card flex flex-col bg-white rounded-lg shadow-lg w-[200px] max-h-[365px]">
+  <div>
+    <img class="cursor-pointer rounded-t-lg object-cover w-full"
+      src="https://scontent.fhan20-1.fna.fbcdn.net/v/t39.30808-1/441532097_450015060941818_6310347976619118830_n.jpg?stp=dst-jpg_p160x160&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFjedJq_zkxMYbQQotP5jhqWER_dhxJPDNYRH92HEk8M5i-oY_n_G3y5unZyt3qz2r9RKvTEFZ6Q1_0Q65BqWXr&_nc_ohc=G9sveGjO5kMQ7kNvgEhB-o8&_nc_ht=scontent.fhan20-1.fna&oh=00_AYAOU6KjJjNq6DcyHwBZ11TUY2t8HDlJiVt73-jJ2nDhTQ&oe=666E4F78"
+      alt="">
+  </div>
+  <div class="p-3">
+    <div class="flex flex-col mt-[-8px]">
+      <span class="cursor-pointer hover:underline font-bold truncate">Kien Quang Ta</span>
+      <span class="text-[#888888] truncate">Followed by 10k</span>
+    </div>
+    <div class="flex flex-col gap-2 mt-2 font-semibold">
+      <button *ngIf="!isRequest" class="bg-[#ebf5ff] text-[#0866ff] rounded-md h-10">Add friend</button>
+      <button *ngIf="isRequest" class="bg-[#0866ff] text-white rounded-md h-10">Confirm</button>
+      <button class="bg-[#e4e6eb] rounded-md h-10">Delete</button>
+    </div>
+  </div>
+</div>

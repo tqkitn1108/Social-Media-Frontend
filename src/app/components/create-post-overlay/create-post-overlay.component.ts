@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Profile } from '../../services/api/models/profile';
 import { PostRequest } from '../../services/api/models/post-request';
 import { PostService } from '../../services/api/post/post.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Media } from '../../services/api/models/media';
+import { Post } from '../../services/api/models/post';
 
 @Component({
   selector: 'app-create-post-overlay',
@@ -17,6 +17,8 @@ export class CreatePostOverlayComponent {
 
   @Output()
   isClose: EventEmitter<any> = new EventEmitter();
+  @Output()
+  isCreated: EventEmitter<Post> = new EventEmitter();
 
   imageDisplay: string = '';
   post: PostRequest = {};
@@ -37,6 +39,7 @@ export class CreatePostOverlayComponent {
     this.postService.createPost(this.post).subscribe({
       next: (data) => {
         this.onClose();
+        this.isCreated.emit(data);
       },
       error: (err) => {
         console.log(err);
@@ -70,16 +73,26 @@ export class CreatePostOverlayComponent {
       formData.append('files', fileData.file);
     });
 
-    return new Promise((resolve, reject) => {
-      this.postService.uploadMutilMedia(formData)
-        .subscribe({
-          next: (response) => {
-            resolve(response);
-          },
-          error: (err: HttpErrorResponse) => {
-            reject(err);
-          }
-        });
-    });
+    // return new Promise((resolve, reject) => {
+    //   this.postService.uploadMutilMedia(formData)
+    //     .subscribe({
+    //       next: (response) => {
+    //         resolve(response);
+    //       },
+    //       error: (err: HttpErrorResponse) => {
+    //         reject(err);
+    //       }
+    //     });
+    // });
+    this.postService.uploadMutilMedia(formData)
+      .subscribe({
+        next: (response) => {
+          this.createPost(response);
+        },
+        error: (err) => {
+          console.log(err);
+
+        }
+      })
   }
 }
