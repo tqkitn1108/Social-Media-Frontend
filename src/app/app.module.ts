@@ -24,6 +24,7 @@ import { FriendCardComponent } from './components/friend-card/friend-card.compon
 import { FriendsPageComponent } from './pages/friends-page/friends-page.component';
 import { SearchItemComponent } from './components/search-item/search-item.component';
 import { FriendsAllComponent } from './components/friends-all/friends-all.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 export function kcFactory(kcService: KeycloakService) {
   return () => kcService.init();
@@ -48,6 +49,7 @@ export function kcFactory(kcService: KeycloakService) {
     FriendsPageComponent,
     SearchItemComponent,
     FriendsAllComponent,
+    SearchPageComponent,
   ],
   imports: [
     BrowserModule,

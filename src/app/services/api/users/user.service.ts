@@ -28,4 +28,23 @@ export class UserService {
     return this.http.patch(`${this.rootUrl}/avatar`, { avatarUrl: url });
   }
 
+  searchUser(query: string) {
+    return this.http.get<Profile[]>(`${this.rootUrl}/search?query=${query}`);
+  }
+
+  addFriend(targetId: string) {
+    return this.http.post(`${this.rootUrl}/add-friend/${targetId}`, {});
+  }
+
+  follow(targetId: string) {
+    return this.http.post(`${this.rootUrl}/follow/${targetId}`, {});
+  }
+
+  getMyFriendPendings(userId: string) {
+    return this.http.get<Profile[]>(`${this.rootUrl}/${userId}/pendings`);
+  }
+
+  acceptFriendRequest(targetId: string) {
+    return this.http.post(`${this.rootUrl}/accept-friend/${targetId}`, {});
+  }
 }

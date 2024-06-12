@@ -4,8 +4,9 @@
       <i class="fa-brands fa-facebook text-4xl text-blue-500"></i>
     </a>
     <div class="flex items-center justify-center bg-[#EFF2F5] p-1 rounded-full h-[40px] ml-2 pr-10">
-      <i class="fa-solid fa-magnifying-glass px-2 text-[#64676B]" :size="22" fillColor="#64676B"></i>
-      <input class="lg:block hidden border-none bg-[#EFF2F5] placeholder-[#64676B] outline-0 focus:outline-0"
+      <i class="fa-solid fa-magnifying-glass px-2 text-[#64676B]" size="22" fillColor="#64676B"></i>
+      <input (keyup.enter)="onSearch($event)"
+        class="lg:block hidden border-none bg-[#EFF2F5] placeholder-[#64676B] outline-0 focus:outline-0"
         placeholder="Search in Facebook" type="text">
     </div>
   </div>

@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
         next: data => {
           this.user = data;
           if (this.user.avatarUrl === null) {
-            this.user.avatarUrl = 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png';
+            this.user.avatarUrl = 'https://res.cloudinary.com/dxwdkeign/image/upload/v1718177786/qy79yhrfgenypywfaznb.jpg';
           }
         },
         error: (err: HttpErrorResponse) => {

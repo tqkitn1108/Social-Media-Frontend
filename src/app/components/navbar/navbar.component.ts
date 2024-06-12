@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { KeycloakService } from '../../services/keycloak/keycloak.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,13 +9,16 @@ import { KeycloakService } from '../../services/keycloak/keycloak.service';
 })
 export class NavbarComponent implements OnInit {
 
-  showMenu: boolean = false;
   @Input()
   fullName: string | undefined = '';
   @Input()
   avatar: string | undefined = '';
+  showMenu: boolean = false;
 
-  constructor(private keycloakService: KeycloakService) { }
+  constructor(
+    private keycloakService: KeycloakService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     const navLinks = document.querySelectorAll('.nav-link');
@@ -39,10 +43,18 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  onSearch(event: any) {
+    if (!event.target.value) return;
+    const queryParams = {
+      query: event.target.value
+    }
+    event.target.value = '';
+    this.router.navigate(['/search'], { queryParams })
+  }
+
 
   async logout() {
     localStorage.removeItem('user');
     this.keycloakService.logout();
   }
-
 }

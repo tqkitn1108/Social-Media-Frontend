@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FriendsPageComponent } from './pages/friends-page/friends-page.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'friends',
     component: FriendsPageComponent
+  },
+  {
+    path: 'search',
+    component: SearchPageComponent
   }
 ];
 

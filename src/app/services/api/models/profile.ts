@@ -5,7 +5,7 @@ export interface Profile {
   friendsCount?: number;
   followersCount?: number;
   followingsCount?: number;
-  isFollower?: boolean;
-  isFollowing?: boolean;
-  isFriend?: boolean;
+  follower?: boolean;
+  following?: boolean;
+  friend?: boolean;
 }

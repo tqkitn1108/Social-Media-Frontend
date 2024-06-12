@@ -27,8 +27,8 @@ export class HomeComponent implements OnInit {
           next: data => {
             this.user = data;
             if (this.user.avatarUrl === null) {
-              this.user.avatarUrl = 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1';
-              this.userService.setAvatarUrl('https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1').subscribe({
+              this.user.avatarUrl = 'https://res.cloudinary.com/dxwdkeign/image/upload/v1718177786/qy79yhrfgenypywfaznb.jpg';
+              this.userService.setAvatarUrl('https://res.cloudinary.com/dxwdkeign/image/upload/v1718177786/qy79yhrfgenypywfaznb.jpg').subscribe({
                 error: err => {
                   console.log(err);
                 }
