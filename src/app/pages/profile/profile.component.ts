@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Profile } from '../../services/api/models/profile';
 import { PostService } from '../../services/api/post/post.service';
 import { Post } from '../../services/api/models/post';
+import { Media } from '../../services/api/models/media';
 
 @Component({
   selector: 'app-profile',
@@ -12,11 +13,12 @@ import { Post } from '../../services/api/models/post';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
+  me: Profile = JSON.parse(localStorage.getItem('user') as string);
   user: Profile = {};
   showCropper: boolean = false;
   isMyProfile: boolean = true;
-  param: string = '';
   posts: Post[] = [];
+  medias: Media[] = [];
   subContent: string = '';
 
   constructor(
@@ -27,15 +29,37 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.subContent = this.activatedRoute.snapshot.queryParams['sc'];
-    this.param = this.activatedRoute.snapshot.params["userId"];
-    if (this.param && this.param !== JSON.parse(localStorage.getItem('user') as string).id) {
+    this.activatedRoute.params.subscribe(params => {
+      const userId = params['userId'];
+      this.loadProfile(userId);
+    });
+    this.activatedRoute.queryParams.subscribe(queryParams => {
+      this.subContent = queryParams['sc'];
+      if (this.subContent)
+        this.openFriends();
+      else this.openPosts();
+    });
+  }
+
+  loadProfile(userId: string) {
+    if (userId && userId !== this.me.id) {
       this.isMyProfile = false;
-      this.userService.getUserById(this.param).subscribe({
+      this.userService.getUserById(userId).subscribe({
         next: data => {
           this.user = data;
           if (this.user.avatarUrl === null) {
             this.user.avatarUrl = 'https://res.cloudinary.com/dxwdkeign/image/upload/v1718177786/qy79yhrfgenypywfaznb.jpg';
+          }
+          if (this.user.id) {
+            this.postService.getMediasByOwner(this.user.id)
+              .subscribe({
+                next: data => {
+                  this.medias = data;
+                },
+                error: err => {
+                  console.log(err);
+                }
+              })
           }
         },
         error: (err: HttpErrorResponse) => {
@@ -43,8 +67,8 @@ export class ProfileComponent implements OnInit {
         }
       })
     }
-    else this.user = JSON.parse(localStorage.getItem('user') as string);
-    this.postService.getPostsByOwnerId(this.param || this.user.id as string).subscribe({
+    else this.user = this.me;
+    this.postService.getPostsByOwnerId(userId || this.user.id as string).subscribe({
       next: data => {
         this.posts = data;
       },
@@ -69,6 +93,11 @@ export class ProfileComponent implements OnInit {
       'sc': 'friends'
     }
     this.router.navigate(['/profile', userId], { queryParams });
+  }
+
+  openPosts() {
+    const userId = this.user.id;
+    this.router.navigate(['/profile', userId]);
   }
 
   addToPosts(post: Post) {

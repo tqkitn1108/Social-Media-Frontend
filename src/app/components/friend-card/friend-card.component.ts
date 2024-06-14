@@ -10,28 +10,25 @@ import { UserService } from '../../services/api/users/user.service';
 export class FriendCardComponent {
   @Input()
   user: Profile = {};
-  @Input()
-  index: number = -1;
-  isRequest: boolean = true;
+  // @Input()
+  // index: number = -1;
   isAccepted: boolean = false;
 
-  @Output()
-  emitAccepted: EventEmitter<number> = new EventEmitter();
+  // @Output()
+  // emitAccepted: EventEmitter<number> = new EventEmitter();
 
   constructor(private userService: UserService) { }
 
   confirm() {
     this.isAccepted = true;
-    this.isRequest = false;
     if (this.user.id) {
       this.userService.acceptFriendRequest(this.user.id)
         .subscribe({
           next: data => {
-            this.emitAccepted.emit(this.index);
+            // this.emitAccepted.emit(this.index);
           },
           error: err => {
             this.isAccepted = false;
-            this.isRequest = true;
             console.log(err);
           }
         })

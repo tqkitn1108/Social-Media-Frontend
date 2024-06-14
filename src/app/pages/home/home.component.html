@@ -1,15 +1,16 @@
-<app-navbar [fullName]="user.fullName" [avatar]="user.avatarUrl"></app-navbar>
+<app-navbar></app-navbar>
 <app-create-post-overlay *ngIf="openCreatePost"></app-create-post-overlay>
 <div class="fixed w-full h-[100%] bg-[#F1F2F5]">
-  <div class="flex space-x-20 w-full max-w-[1600px] mt-[56px] h-[calc(100%-56px)] mx-auto px-4">
+  <div class="flex justify-between w-full max-w-[1650px] mt-[56px] h-[calc(100%-56px)] mx-auto">
     <div id="left-section" class="xl:w-[345px] lg:block hidden z-10">
       <div class="pt-4 max-w-[320px] pr-4">
-        <a routerLink="/profile"
+        <a routerLink="/profile/me"
           class="flex items-center justify-start w-full cursor-pointer hover:bg-[#E5E6E9] p-2 rounded-md">
           <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" [src]="user.avatarUrl">
           <div class="text-[15px] text-gray-800 font-extrabold pl-3">{{user.fullName}}</div>
         </a>
-        <button routerLink="/friends" class="flex items-center justify-start w-full cursor-pointer hover:bg-[#E5E6E9] p-4 rounded-md">
+        <button routerLink="/friends"
+          class="flex items-center justify-start w-full cursor-pointer hover:bg-[#E5E6E9] p-4 rounded-md">
           <i class="fa-solid fa-user-group text-[#5BD7C6] text-xl"></i>
           <div class="text-[15px] text-gray-800 font-extrabold pl-3">Friends</div>
         </button>
@@ -45,96 +46,34 @@
         </button>
       </div>
     </div>
-    <div id="posts-section" class="max-w-[620px] lg:w-full lg:mx-0 mx-auto overflow-auto pl-3">
+    <div id="posts-section" class="max-w-[750px] lg:w-full lg:mx-0 mx-auto overflow-auto w-full">
 
-      <app-create-post-box [user]="user"></app-create-post-box>
-      <div v-for="post in posts.data" :key="post">
-        <!-- <Post :user="post.user" :post="post" :comments="post.comments" /> -->
-        <!-- <app-post></app-post> -->
-      </div>
+      <app-create-post-box></app-create-post-box>
+      <app-post *ngFor="let post of feed" [post]="post"></app-post>
 
     </div>
-    <div id="right-section" class="w-[350px] pl-4 md:block hidden z-10">
+    <div id="right-section" class="w-[340px] md:block hidden z-10">
       <div class="max-w-[340px] min-w-[250px] mx-auto pt-4">
         <div class="flex items-center justify-between border-b border-b-gray-300">
           <div class="font-semibold">Contacts</div>
           <div class="flex items-center">
-            <div class="p-2 hover:bg-gray-300 rounded-full cursor-pointer">
+            <div class="py-1 px-2 hover:bg-gray-300 rounded-full cursor-pointer">
               <i class="fa-solid fa-video text=[#050505]"></i>
             </div>
-            <div class="p-2 hover:bg-gray-300 rounded-full cursor-pointer">
+            <div class="py-1 px-2 hover:bg-gray-300 rounded-full cursor-pointer">
               <i class="fa-solid fa-magnifying-glass text-[#050505]"></i>
             </div>
-            <div class="p-2 hover:bg-gray-300 rounded-full cursor-pointer">
+            <div class="py-1 px-2 hover:bg-gray-300 rounded-full cursor-pointer">
               <i class="fa-solid fa-ellipsis text-[#050505]"></i>
             </div>
           </div>
         </div>
         <div class="h-[calc(100vh-115px)] overflow-auto pt-2">
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/140/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Andrew Smith</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/141/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Wade Konopelski</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/142/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Thora Deckow</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/143/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Prof. Cooper Ratke</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/140/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Dennis Hackett</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/141/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Jodie Collins</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/142/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Alphonso Lindgren</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/143/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Barrett Fay Jr</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/140/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Andrew Smith</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/141/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Wade Konopelski</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/142/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Thora Deckow</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/143/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Prof. Cooper Ratke</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/140/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Dennis Hackett</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/141/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Jodie Collins</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/142/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Alphonso Lindgren</div>
-          </div>
-          <div class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
-            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" src="https://picsum.photos/id/143/300/320">
-            <div class="text-[15px] text-gray-800 font-extrabold pl-3">Barrett Fay Jr</div>
-          </div>
+          <a routerLink="/profile/{{contact.id}}" *ngFor="let contact of contacts"
+            class="flex items-center justify-start cursor-pointer hover:bg-[#E5E6E9] py-2 rounded-md">
+            <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" [src]="contact.avatarUrl">
+            <div class="text-[15px] text-gray-800 font-extrabold pl-3">{{contact.fullName}}</div>
+          </a>
         </div>
       </div>
     </div>

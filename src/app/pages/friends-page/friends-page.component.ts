@@ -28,7 +28,7 @@ export class FriendsPageComponent implements OnInit {
     }
   }
 
-  removeCard(index: number) {
-    this.pendings.splice(index, 1);
-  }
+  // removeCard(index: number) {
+  //   this.pendings.splice(index, 1);
+  // }
 }

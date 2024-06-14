@@ -1,4 +1,4 @@
-<app-navbar [avatar]="user.avatarUrl" [fullName]="user.fullName"></app-navbar>
+<app-navbar></app-navbar>
 <app-cropper-modal *ngIf="showCropper" (isClosed)="closeModal()" [userId]="user.id ?? ''"
   (changeAvatar)="onChangeAvatar($event)"></app-cropper-modal>
 
@@ -48,13 +48,18 @@
         </div>
 
         <div class="flex flex-row">
-          <button *ngIf="!isMyProfile" class="flex justify-center items-center px-5 font-bold w-7/12 md:w-[100px] 
+          <button *ngIf="!isMyProfile && !user.following" class="flex justify-center items-center px-5 font-bold w-7/12 md:w-[100px] 
              md:my-0 m-2 hover:bg-blue-500 rounded-lg cursor-pointer bg-[#1D72E2] text-white h-[40px]">
             <i class="fa-solid fa-plus text-lg mr-1"></i>Follow
           </button>
-          <button *ngIf="!isMyProfile" class="flex justify-center items-center px-5 font-bold w-7/12 md:w-[150px] 
+          <button *ngIf="!isMyProfile && !user.friend" class="flex justify-center items-center px-5 font-bold w-7/12 md:w-[150px] 
           md:my-0 m-2 hover:bg-blue-500 rounded-lg cursor-pointer bg-[#1D72E2] text-white h-[40px]">
             <i class="fa-solid fa-user-plus text-lg mr-1"></i> Add friend
+          </button>
+          <button *ngIf="!isMyProfile && user.friend" class="flex justify-center items-center px-5 font-bold w-7/12 
+          md:w-[100px] 
+          md:my-0 m-2 hover:bg-gray-300 rounded-lg cursor-pointer bg-gray-200 text-black h-[40px]">
+            <i class="fa-solid fa-check text-black mr-1"></i>Friends
           </button>
           <button *ngIf="isMyProfile" class="flex items-center px-5 py-2 font-bold justify-center w-7/12 md:w-[150px] 
             items-baseline md:my-0 my-4 bg-gray-200 hover:bg-gray-300 rounded-lg cursor-pointer">
@@ -64,13 +69,13 @@
       </div>
 
       <div class="flex items-centerw-full border-t h-[50px] py-[4px]">
-        <button class="w-[85px]">
+        <a routerLink="/profile/{{user.id}}" class="w-[85px]">
           <div class="flex items-center text-[15px] justify-center h-[45px] text-blue-500 hover:bg-[#F2F2F2]
               w-full font-bold rounded-lg cursor-pointer">
             Posts
           </div>
           <div class="border-b-4 border-b-blue-400 rounded-md"></div>
-        </button>
+        </a>
         <button
           class="flex items-center text-[15px] justify-center h-[48px] p-1 hover:bg-[#F2F2F2] w-[85px] font-bold rounded-lg mx-1 cursor-pointer">
           About
@@ -123,18 +128,18 @@
         </div>
       </div>
 
-      <div class="bg-white p-3 mt-4 rounded-lg shadow-lg">
+      <div *ngIf="medias.length > 0" class="bg-white p-3 mt-4 rounded-lg shadow-lg sticky top-[60px]">
         <div class="font-extrabold pb-2 text-xl">Photos</div>
         <div class="flex flex-wrap items-center justify-start w-full">
-          <span v-for="photo in posts.data" :key="photo" class="w-1/3" v-show="photo.image !== null">
-            <img (click)="true" class="aspect-square object-cover p-1 rounded-lg cursor-pointer" :src="photo.image">
+          <span *ngFor="let media of medias" class="w-1/3">
+            <img (click)="true" class="aspect-square object-cover p-1 rounded-lg cursor-pointer" [src]="media.url">
           </span>
         </div>
       </div>
     </div>
 
-    <div id="posts-section" class="w-full md:w-7/12  overflow-auto">
-      <app-create-post-box [user]="user" (createdPost)="addToPosts($event)" ></app-create-post-box>
+    <div id="posts-section" class="w-full md:w-7/12 overflow-auto">
+      <app-create-post-box (createdPost)="addToPosts($event)"></app-create-post-box>
       <app-post *ngFor="let post of posts" [post]="post"></app-post>
     </div>
 
@@ -142,6 +147,6 @@
 
   <div *ngIf="subContent==='friends'"
     class="flex-col md:flex max-w-[1100px] justify-between h-[calc(100%-56px)] md:px-0 p-4 rounded-lg mx-auto">
-    <app-friends-all></app-friends-all>
+    <app-friends-all [user]="user"></app-friends-all>
   </div>
 </div>

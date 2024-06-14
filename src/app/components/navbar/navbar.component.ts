@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { KeycloakService } from '../../services/keycloak/keycloak.service';
 import { Router } from '@angular/router';
+import { Profile } from '../../services/api/models/profile';
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  @Input()
-  fullName: string | undefined = '';
-  @Input()
-  avatar: string | undefined = '';
+  user: Profile = JSON.parse(localStorage.getItem('user') as string);
   showMenu: boolean = false;
 
   constructor(
@@ -56,5 +54,9 @@ export class NavbarComponent implements OnInit {
   async logout() {
     localStorage.removeItem('user');
     this.keycloakService.logout();
+  }
+
+  manageAccount(){
+    this.keycloakService.manageAccount();
   }
 }

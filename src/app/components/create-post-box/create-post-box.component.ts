@@ -8,10 +8,8 @@ import { Post } from '../../services/api/models/post';
   styleUrl: './create-post-box.component.scss'
 })
 export class CreatePostBoxComponent implements OnInit {
-
   createPostOverlay: boolean = false;
-  @Input()
-  user: Profile = {};
+  user: Profile = JSON.parse(localStorage.getItem('user') as string);
   @Output()
   createdPost: EventEmitter<Post> = new EventEmitter();
 

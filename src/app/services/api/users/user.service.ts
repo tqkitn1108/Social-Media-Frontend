@@ -47,4 +47,8 @@ export class UserService {
   acceptFriendRequest(targetId: string) {
     return this.http.post(`${this.rootUrl}/accept-friend/${targetId}`, {});
   }
+
+  getFriends(userId: string){
+    return this.http.get<Profile[]>(`${this.rootUrl}/${userId}/friends`);
+  }
 }

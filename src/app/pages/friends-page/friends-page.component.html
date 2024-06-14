@@ -1,11 +1,11 @@
-<app-navbar [fullName]="user.fullName" [avatar]="user.avatarUrl"></app-navbar>
+<app-navbar></app-navbar>
 <div class="fixed w-full h-[100%] bg-[#F1F2F5]">
-  <div class="flex space-x-10 w-full max-w-[1600px] mt-[56px] h-[calc(100%-56px)] mx-auto">
-    <div id="left-section" class="lg:block z-10 bg-white w-[420px]">
+  <div class="flex space-x-20 w-full mt-[56px] h-[calc(100%-56px)] mx-auto">
+    <div id="left-section" class="lg:block z-10 bg-white lg:w-[400px] hidden">
       <div class="pt-4 max-w-[400px] pr-2">
-        <span class="text-2xl text-gray-800 font-bold pl-3">
+        <div class="text-2xl text-gray-800 font-bold pl-3 mb-3">
           Friends
-        </span>
+        </div>
         <button
           class="flex items-center bg-[#f0f2f5] justify-start w-full cursor-pointer hover:bg-[#E5E6E9] p-4 rounded-md">
           <i class="fa-solid fa-user-group text-[#5BD7C6] text-xl"></i>
@@ -33,12 +33,11 @@
         </button>
       </div>
     </div>
-    <div id="right-section" class="lg:w-full lg:mx-0 mx-auto overflow-auto">
+    <div id="right-section" class="lg:mx-0 mx-auto overflow-auto">
       <div id="friend-requests" class="mt-5">
         <span class="text-xl font-bold">Friends Requests</span>
         <div class="flex flex-wrap gap-3 mt-5">
-          <app-friend-card *ngFor="let user of pendings; let i = index" [user]="user"
-            [index]="i" (emitAccepted)="removeCard($event)"></app-friend-card>
+          <app-friend-card *ngFor="let user of pendings; let i = index" [user]="user"></app-friend-card>
         </div>
       </div>
     </div>

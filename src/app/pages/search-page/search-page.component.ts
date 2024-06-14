@@ -11,7 +11,6 @@ import { ActivatedRoute } from '@angular/router';
 export class SearchPageComponent implements OnInit {
   user: Profile = JSON.parse(localStorage.getItem('user') as string);
 
-  query: string = '';
   users: Profile[] = [];
 
   constructor(private userService: UserService,
@@ -19,13 +18,17 @@ export class SearchPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.query = this.activatedRoute.snapshot.queryParams['query'];
-    this.userService.searchUser(this.query)
+    this.activatedRoute.queryParams.subscribe(queryParams => {
+      const query = queryParams['query'];
+      this.loadSearchResult(query);
+    });
+  }
+
+  loadSearchResult(query: string) {
+    this.userService.searchUser(query)
       .subscribe({
         next: data => {
           this.users = data;
-          console.log(data);
-          
         },
         error: err => {
           console.log(err);

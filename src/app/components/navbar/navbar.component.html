@@ -59,15 +59,20 @@
     </button>
     <div class="flex items-center justify-center relative">
       <button (click)="showMenu = !showMenu">
-        <img class="rounded-full ml-1 min-w-[40px] max-h-[40px] cursor-pointer" [src]="avatar">
+        <img class="rounded-full ml-1 min-w-[40px] max-h-[40px] cursor-pointer" [src]="user.avatarUrl">
       </button>
       <div *ngIf="showMenu" class="absolute bg-white shadow-xl top-10 right-0 w-[330px] rounded-lg p-1 border mt-1">
         <a routerLink="/profile/me">
           <div class="flex items-center gap-3 hover:bg-gray-200 p-2 rounded-lg">
-            <img class="rounded-full ml-1 min-w-[35px] max-h-[35px] cursor-pointer" [src]="avatar">
-            <span class="font-bold">{{fullName}}</span>
+            <img class="rounded-full ml-1 min-w-[35px] max-h-[35px] cursor-pointer" [src]="user.avatarUrl">
+            <span class="font-bold">{{user.fullName}}</span>
           </div>
         </a>
+        <div class="flex items-center gap-3 hover:bg-gray-200 px-2 py-2.5 rounded-lg cursor-pointer"
+          (click)="manageAccount()">
+          <i class="fa-solid fa-user-pen pl-3 text-2xl"></i>
+          <span>Account Management</span>
+        </div>
         <div class="flex items-center gap-3 hover:bg-gray-200 px-2 py-2.5 rounded-lg cursor-pointer" (click)="logout()">
           <i class="fa-solid fa-right-from-bracket pl-3 text-2xl"></i>
           <span>Logout</span>

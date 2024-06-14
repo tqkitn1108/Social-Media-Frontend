@@ -4,12 +4,12 @@
   </div>
   <div class="p-3">
     <div class="flex flex-col mt-[-8px]">
-      <span class="cursor-pointer hover:underline font-bold truncate">{{user.fullName}}</span>
+      <span  class="cursor-pointer hover:underline font-bold truncate">{{user.fullName}}</span>
       <span class="text-[#888888] truncate">Followed by 10k</span>
     </div>
     <div class="flex flex-col gap-2 mt-2 font-semibold">
-      <button *ngIf="!isRequest && !isAccepted" class="bg-[#ebf5ff] text-[#0866ff] rounded-md h-10">Add friend</button>
-      <button *ngIf="isRequest" (click)="confirm()" class="bg-[#0866ff] text-white rounded-md h-10">Confirm</button>
+      <!-- <button *ngIf="!isRequest && !isAccepted" class="bg-[#ebf5ff] text-[#0866ff] rounded-md h-10">Add friend</button> -->
+      <button (click)="confirm()" class="bg-[#0866ff] text-white rounded-md h-10">Confirm</button>
       <button *ngIf="!isAccepted" class="bg-[#e4e6eb] rounded-md h-10">Delete</button>
       <button *ngIf="isAccepted" class="bg-[#e4e6eb] rounded-md h-10" disabled>Request Accepted</button>
     </div>

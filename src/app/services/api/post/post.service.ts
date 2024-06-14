@@ -37,15 +37,19 @@ export class PostService {
     return this.http.post<Media>(`${this.rootUrl}/medias/upload`, formData);
   }
 
+  getMediasByOwner(ownerId: string) {
+    return this.http.get<Media[]>(`${this.rootUrl}/medias/by-owner/${ownerId}`);
+  }
+
   addReact(reactRequest: ReactRequest) {
     return this.http.post(`${this.rootUrl}/reacts`, reactRequest);
   }
 
-  addComment(commentRequest: CommentRequest){
+  addComment(commentRequest: CommentRequest) {
     return this.http.post<Comment>(`${this.rootUrl}/comments`, commentRequest)
   }
 
-  getCommentsByPost(postId: number){
+  getCommentsByPost(postId: number) {
     return this.http.get<Comment[]>(`${this.rootUrl}/comments/post/${postId}`);
   }
 }

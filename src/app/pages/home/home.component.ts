@@ -4,6 +4,8 @@ import { UserService } from '../../services/api/users/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Profile } from '../../services/api/models/profile';
 import { Router } from '@angular/router';
+import { FeedService } from '../../services/api/feed/feed.service';
+import { Post } from '../../services/api/models/post';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +17,13 @@ export class HomeComponent implements OnInit {
   constructor(
     private keycloakService: KeycloakService,
     private userService: UserService,
+    private feedService: FeedService,
     private router: Router
   ) { }
   user: Profile = JSON.parse(localStorage.getItem('user') as string);
   openCreatePost: boolean = false;
+  contacts: Profile[] = [];
+  feed: Post[] = [];
 
   ngOnInit(): void {
     if (!this.isMatchedLocalStorage()) {
@@ -41,6 +46,18 @@ export class HomeComponent implements OnInit {
           }
         })
     }
+    if (this.user.id) {
+      this.userService.getFriends(this.user.id)
+        .subscribe({
+          next: data => {
+            this.contacts = data;
+          },
+          error: err => {
+            console.log(err);
+          }
+        })
+      this.loadFeed();
+    }
   }
 
   isMatchedLocalStorage() {
@@ -50,5 +67,17 @@ export class HomeComponent implements OnInit {
       localStorage.removeItem('user');
     }
     return false;
+  }
+
+  loadFeed() {
+    this.feedService.getMyFeed()
+      .subscribe({
+        next: data => {
+          this.feed = data;
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
   }
 } 
