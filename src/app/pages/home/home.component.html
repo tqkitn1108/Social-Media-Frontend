@@ -6,8 +6,8 @@
       <div class="pt-4 max-w-[320px] pr-4">
         <a routerLink="/profile/me"
           class="flex items-center justify-start w-full cursor-pointer hover:bg-[#E5E6E9] p-2 rounded-md">
-          <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" [src]="user.avatarUrl">
-          <div class="text-[15px] text-gray-800 font-extrabold pl-3">{{user.fullName}}</div>
+          <img class="rounded-full ml-1 min-w-[38px] max-h-[38px]" [src]="user?.avatarUrl">
+          <div class="text-[15px] text-gray-800 font-extrabold pl-3">{{user?.fullName}}</div>
         </a>
         <button routerLink="/friends"
           class="flex items-center justify-start w-full cursor-pointer hover:bg-[#E5E6E9] p-4 rounded-md">
@@ -46,14 +46,14 @@
         </button>
       </div>
     </div>
-    <div id="posts-section" class="max-w-[750px] lg:w-full lg:mx-0 mx-auto overflow-auto w-full">
+    <div id="posts-section" class="max-w-[700px] lg:w-full lg:mx-0 mx-auto overflow-auto w-full">
 
       <app-create-post-box></app-create-post-box>
       <app-post *ngFor="let post of feed" [post]="post"></app-post>
 
     </div>
     <div id="right-section" class="w-[340px] md:block hidden z-10">
-      <div class="max-w-[340px] min-w-[250px] mx-auto pt-4">
+      <div class="max-w-[340px] min-w-[250px] mx-auto pt-4 pr-4">
         <div class="flex items-center justify-between border-b border-b-gray-300">
           <div class="font-semibold">Contacts</div>
           <div class="flex items-center">

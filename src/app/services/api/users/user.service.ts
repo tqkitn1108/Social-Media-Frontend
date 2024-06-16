@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../config/base.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Profile } from '../models/profile';
 
 @Injectable({
@@ -48,7 +48,7 @@ export class UserService {
     return this.http.post(`${this.rootUrl}/accept-friend/${targetId}`, {});
   }
 
-  getFriends(userId: string){
+  getFriends(userId: string) {
     return this.http.get<Profile[]>(`${this.rootUrl}/${userId}/friends`);
   }
 }

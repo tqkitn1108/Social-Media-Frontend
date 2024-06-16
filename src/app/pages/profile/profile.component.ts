@@ -35,9 +35,9 @@ export class ProfileComponent implements OnInit {
     });
     this.activatedRoute.queryParams.subscribe(queryParams => {
       this.subContent = queryParams['sc'];
-      if (this.subContent)
-        this.openFriends();
-      else this.openPosts();
+      const userId = this.activatedRoute.snapshot.params['userId'];
+      if (this.subContent) this.openFriends();
+      else this.openPosts(userId);
     });
   }
 
@@ -49,17 +49,6 @@ export class ProfileComponent implements OnInit {
           this.user = data;
           if (this.user.avatarUrl === null) {
             this.user.avatarUrl = 'https://res.cloudinary.com/dxwdkeign/image/upload/v1718177786/qy79yhrfgenypywfaznb.jpg';
-          }
-          if (this.user.id) {
-            this.postService.getMediasByOwner(this.user.id)
-              .subscribe({
-                next: data => {
-                  this.medias = data;
-                },
-                error: err => {
-                  console.log(err);
-                }
-              })
           }
         },
         error: (err: HttpErrorResponse) => {
@@ -76,6 +65,19 @@ export class ProfileComponent implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  loadPhotos(userId: string) {
+    if (userId === undefined) userId = this.user.id || '';
+    this.postService.getMediasByOwner(userId)
+      .subscribe({
+        next: data => {
+          this.medias = data;
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
   }
 
   closeModal() {
@@ -95,9 +97,12 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/profile', userId], { queryParams });
   }
 
-  openPosts() {
-    const userId = this.user.id;
-    this.router.navigate(['/profile', userId]);
+  openPosts(userId: string) {
+    this.loadPhotos(userId);
+    if (userId === this.me.id || userId === undefined)
+      this.router.navigate(['/profile/me']);
+    else
+      this.router.navigate(['/profile', userId]);
   }
 
   addToPosts(post: Post) {

@@ -46,16 +46,8 @@ export class HomeComponent implements OnInit {
           }
         })
     }
-    if (this.user.id) {
-      this.userService.getFriends(this.user.id)
-        .subscribe({
-          next: data => {
-            this.contacts = data;
-          },
-          error: err => {
-            console.log(err);
-          }
-        })
+    if (this.keycloakService.profile?.id) {
+      this.loadContacts(this.keycloakService.profile?.id);
       this.loadFeed();
     }
   }
@@ -74,6 +66,18 @@ export class HomeComponent implements OnInit {
       .subscribe({
         next: data => {
           this.feed = data;
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+  }
+
+  loadContacts(userId: string) {
+    this.userService.getFriends(userId)
+      .subscribe({
+        next: data => {
+          this.contacts = data;
         },
         error: err => {
           console.log(err);

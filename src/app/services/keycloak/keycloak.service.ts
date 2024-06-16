@@ -47,7 +47,7 @@ export class KeycloakService {
     });
   }
 
-  manageAccount(){
+  manageAccount() {
     return this.keycloak?.accountManagement();
   }
 }

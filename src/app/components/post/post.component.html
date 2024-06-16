@@ -19,11 +19,11 @@
     </div>
   </div>
   <div class="px-5 pb-2 text-[17px] font-semibold">{{post.content}}</div>
-  <div class="grid grid-cols-2 max-h-[400px]">
+  <div class="grid max-h-[500px]" [ngClass]="{'grid-cols-2': post.medias.length%2==0 }">
     <div *ngFor="let media of post.medias; let i = index">
-      <div *ngIf="media" class="p-2 rounded-lg relative">
+      <div *ngIf="media" class="p-2 rounded-lg h-full">
         <img *ngIf="media.mediaType.startsWith('image/')" [src]="media.url" [alt]="" width="100%"
-          class="h-[200px] object-cover">
+          class="object-fill h-full">
         <video *ngIf="media.mediaType.startsWith('video/')" [src]="media.url" width="100%" controls></video>
       </div>
     </div>
