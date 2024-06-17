@@ -16,13 +16,11 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private keycloakService: KeycloakService,
-    private userService: UserService,
     private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.loadUser();
     const navLinks = document.querySelectorAll('.nav-link');
     const divElement = document.createElement('div');
     divElement.className = 'mt-1.5 border-b-4 border-b-blue-400 rounded-md w-full';
@@ -61,38 +59,7 @@ export class NavbarComponent implements OnInit {
   }
 
   manageAccount() {
+    localStorage.removeItem('user');
     this.keycloakService.manageAccount();
-  }
-
-  loadUser() {
-    if (!this.isMatchedLocalStorage()) {
-      this.userService.getCurrentUser()
-        .subscribe({
-          next: data => {
-            this.user = data;
-            if (this.user.avatarUrl === null) {
-              this.user.avatarUrl = 'https://res.cloudinary.com/dxwdkeign/image/upload/v1718177786/qy79yhrfgenypywfaznb.jpg';
-              this.userService.setAvatarUrl('https://res.cloudinary.com/dxwdkeign/image/upload/v1718177786/qy79yhrfgenypywfaznb.jpg').subscribe({
-                error: err => {
-                  console.log(err);
-                }
-              });
-            }
-            localStorage.setItem('user', JSON.stringify(this.user));
-          },
-          error: error => {
-            console.log(error);
-          }
-        })
-    }
-  }
-
-  isMatchedLocalStorage() {
-    if (localStorage.getItem('user')) {
-      const userId = JSON.parse(localStorage.getItem('user') as string).id;
-      if (userId === this.keycloakService.profile?.id) return true;
-      localStorage.removeItem('user');
-    }
-    return false;
   }
 }

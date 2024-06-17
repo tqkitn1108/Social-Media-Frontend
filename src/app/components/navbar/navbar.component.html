@@ -59,7 +59,7 @@
     </button>
     <div class="flex items-center justify-center relative">
       <button (click)="showMenu = !showMenu">
-        <img class="rounded-full ml-1 min-w-[40px] max-h-[40px] cursor-pointer" [src]="user?.avatarUrl">
+        <img class="rounded-full ml-1 min-w-[40px] max-h-[40px] cursor-pointer" [src]="user.avatarUrl">
       </button>
       <div *ngIf="showMenu" class="absolute bg-white shadow-xl top-10 right-0 w-[330px] rounded-lg p-1 border mt-1">
         <a routerLink="/profile/me">
