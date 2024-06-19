@@ -29,6 +29,10 @@ export class PostService {
     return this.http.post<Post>(`${this.rootUrl}/posts`, postRequest);
   }
 
+  deletePost(id: number){
+    return this.http.delete(`${this.rootUrl}/posts/${id}`);
+  }
+
   uploadMutilMedia(formData: FormData) {
     return this.http.post<Media[]>(`${this.rootUrl}/medias/multi-upload`, formData);
   }

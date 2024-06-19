@@ -18,7 +18,6 @@ export const userGuard: CanActivateFn = () => {
   return userService.getCurrentUser().pipe(
     map(user => {
       if (user) {
-        console.log(user);
         if (user.avatarUrl === null) {
           user.avatarUrl = 'https://res.cloudinary.com/dxwdkeign/image/upload/v1718177786/qy79yhrfgenypywfaznb.jpg';
           userService.setAvatarUrl('https://res.cloudinary.com/dxwdkeign/image/upload/v1718177786/qy79yhrfgenypywfaznb.jpg').subscribe({

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Post } from '../../services/api/models/post';
 import { PostService } from '../../services/api/post/post.service';
 import { ReactRequest } from '../../services/api/models/react-request';
@@ -10,7 +10,7 @@ import { Media } from '../../services/api/models/media';
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
   @Input()
   post: Post = {
     id: 0,
@@ -23,6 +23,8 @@ export class PostComponent {
     commentsCount: 0,
     user: {}
   };
+  @Input()
+  index: number = -1;
   commentRequest: any = {};
   showComment: boolean = false;
   reactRequest: ReactRequest = {};
@@ -30,11 +32,25 @@ export class PostComponent {
   selectedFiles: any[] = [];
   mediaResponses: any = [];
   comments: any[] = [];
+  showOptions: boolean = false;
+  @Output()
+  deleteEmit: EventEmitter<number> = new EventEmitter();
 
   constructor(private postService: PostService) { }
 
-  deletePost(id: number) {
+  ngOnInit(): void {
+  }
 
+  deletePost() {
+    this.postService.deletePost(this.post.id)
+      .subscribe({
+        next: data => {
+          this.deleteEmit.emit(this.index);
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
   }
 
   addReact() {

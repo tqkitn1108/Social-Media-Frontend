@@ -1,20 +1,27 @@
 <div id="post" class="w-full bg-white rounded-lg my-4 shadow-md">
   <div class="flex items-center py-3 px-3">
-    <button (click)="true" class="mr-2">
+    <a routerLink="/profile/{{post.user.id}}" class="mr-2">
       <img class="rounded-full ml-1 min-w-[42px] max-h-[42px]" [src]="post.user.avatarUrl">
-    </button>
+    </a>
     <div class="flex items-center justify-between p-2 rounded-full w-full">
       <div>
-        <div class="font-extrabold text-[15px]">{{post.user.fullName}}</div>
+        <a routerLink="/profile/{{post.user.id}}" class="font-extrabold text-[15px]">{{post.user.fullName}}</a>
         <div class="flex items-center text-xs text-gray-600">
           {{post.createdAt}}
           <i class="fa-solid fa-earth-americas text-[#64676B] ml-2"></i>
         </div>
       </div>
-      <div class="flex items-center">
-        <button (click)="deletePost(post.id)" class="rounded-full size-8 cursor-pointer hover:bg-[#F2F2F2]">
+      <div class="flex items-center relative">
+        <button (click)="showOptions = !showOptions" class="rounded-full size-8 cursor-pointer hover:bg-[#F2F2F2]">
           <i class="fa-solid fa-ellipsis text-[#64676B]"></i>
         </button>
+        <div *ngIf="showOptions && post.user.id===user.id"
+          class="absolute right-10 z-10 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div (click)="deletePost()" class="flex items-center gap-3 hover:bg-gray-200 p-1 rounded-lg cursor-pointer">
+            <i class="fa-solid fa-trash pl-3 text-xl"></i>
+            <span>Delete Post</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -30,8 +37,10 @@
   </div>
   <div id="likes" class="px-5">
     <div class="flex items-center justify-between py-3 border-b">
-      <div>
-        <i class="fa-solid fa-thumbs-up text-[#1D72E2]"></i>
+      <div class="flex">
+        <span class="bg-[#1D72E2] rounded-full size-5 flex items-center justify-center mt-[2px] mr-1">
+          <i class="fa-solid fa-thumbs-up text-white text-xs"></i>
+        </span>
         {{post.reactsCount}} likes
       </div>
       <div (click)="onOpenComment()" class="text-sm text-gray-600 font-semibold cursor-pointer">

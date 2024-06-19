@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) { }
   user: Profile = JSON.parse(localStorage.getItem('user') as string);
-  openCreatePost: boolean = false;
   contacts: Profile[] = [];
   feed: Post[] = [];
 
@@ -53,5 +52,13 @@ export class HomeComponent implements OnInit {
           console.log(err);
         }
       })
+  }
+
+  addToFeed(post: Post) {
+    this.feed.unshift(post);
+  }
+
+  deletePost(index: number) {
+    this.feed.splice(index, 1);
   }
 } 

@@ -108,4 +108,8 @@ export class ProfileComponent implements OnInit {
   addToPosts(post: Post) {
     this.posts.unshift(post);
   }
+
+  deletePost(index: number) {
+    this.posts.splice(index, 1);
+  }
 }

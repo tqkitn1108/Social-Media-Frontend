@@ -10,6 +10,7 @@ import { UserService } from '../../services/api/users/user.service';
 export class SearchItemComponent {
   @Input()
   user: Profile = {};
+  isSendRequest: boolean = false;
 
   constructor(private userService: UserService) { }
 
@@ -30,6 +31,7 @@ export class SearchItemComponent {
   }
 
   addFriend() {
+    this.isSendRequest = true;
     if (this.user.id) {
       this.userService.addFriend(this.user.id)
         .subscribe({
@@ -37,6 +39,7 @@ export class SearchItemComponent {
             console.log(data);
           },
           error: err => {
+            this.isSendRequest = false;
             console.log(err);
           }
         })
